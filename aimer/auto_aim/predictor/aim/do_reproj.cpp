@@ -8,7 +8,7 @@
 namespace aimer::aim {
 
 DoReproj::DoReproj() {}
-
+//输入相机矩阵和imu矩阵
 void DoReproj::init(const cv::Mat& cam, const cv::Mat& imu) {
     this->cam = Eigen::Matrix4d();
     Eigen::Matrix<double, 3, 4> mat;
@@ -23,14 +23,14 @@ void DoReproj::init(const cv::Mat& cam, const cv::Mat& imu) {
 DoReproj::DoReproj(const cv::Mat& cam, const cv::Mat& imu) {
     this->init(cam, imu);
 }
-
+//从四元数得到变换矩阵
 Eigen::Matrix4d DoReproj::from_q_get_trans_mat(const DoReproj::Quat& q) {
     Eigen::Matrix4d res = Eigen::Matrix4d::Zero(4, 4);
     res.block<3, 3>(0, 0) = this->imu * q.matrix().inverse();
     res(3, 3) = 1;
     return res;
 }
-
+//从两帧之间获取旋转矩阵
 Eigen::Matrix3d DoReproj::get_fr_trans_mat(const DoReproj::Quat& q1, const DoReproj::Quat& q2) {
     Eigen::Matrix4d mat = this->cam * this->from_q_get_trans_mat(q2)
         * (this->cam * this->from_q_get_trans_mat(q1)).inverse();

@@ -14,6 +14,7 @@ class ImageBullet {
     float radius;
 
     ImageBullet() {}
+    //构造函数
     ImageBullet(const cv::Point2f& _center, const float& _radius) :
         center(_center),
         radius(_radius) {}
@@ -21,12 +22,12 @@ class ImageBullet {
 
 class DoFrameDifference {
     cv::Mat src1, src2;
-    cv::Mat kernel1;
+    cv::Mat kernel1;  //核
 
-    double tme;
+    double tme; //记录程序运行的时间
 
   public:
-    DoFrameDifference() {
+    DoFrameDifference() {  //构造函数 初始化核
         kernel1 = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(10, 10));
     }
 
@@ -41,7 +42,7 @@ class DoFrameDifference {
     }
 };
 
-class DetectBullet {
+class DetectBullet {  // 用于检测子弹
     cv::Mat lst_frame, cur_frame;
     Eigen::Quaterniond lst_fr_q, cur_fr_q;  // 上一帧和当前帧的相机姿态
     cv::Mat cur_hsv;  // 当前帧的 HSV

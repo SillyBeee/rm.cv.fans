@@ -6,10 +6,10 @@
 
 namespace aimer::aim {
 class DoReproj {
-    using Quat = Eigen::Quaterniond;
+    using Quat = Eigen::Quaterniond; //四元数
 
-    Eigen::Matrix4d cam;
-    Eigen::Matrix3d imu;
+    Eigen::Matrix4d cam;  // 相机矩阵
+    Eigen::Matrix3d imu; // imu数据
 
     // from quaternion to transfrom matrix
     Eigen::Matrix4d from_q_get_trans_mat(const Quat& q);
